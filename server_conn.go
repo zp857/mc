@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	"github.com/zp857/goutil/networkx"
 	"io"
 	"net"
 	"strings"
@@ -81,7 +82,8 @@ func (sc *serverConn) quit(m *msg) {
 }
 
 func (sc *serverConn) connect() error {
-	c, err := net.DialTimeout(sc.scheme, sc.address, sc.config.ConnectionTimeout)
+	timeout := time.Duration(sc.config.Timeout) * time.Second
+	c, err := networkx.NewConn(sc.address, sc.config.Proxy, timeout)
 	if err != nil {
 		return wrapError(StatusNetworkError, err)
 	}

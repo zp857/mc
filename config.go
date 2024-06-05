@@ -22,6 +22,9 @@ type Config struct {
 	TcpKeepAlive       bool
 	TcpKeepAlivePeriod time.Duration
 	TcpNoDelay         bool
+
+	Proxy   string
+	Timeout int
 }
 
 /*
